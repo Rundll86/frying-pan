@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LineEdit from '../LineEdit.vue';
+import LineEdit from "../LineEdit.vue";
 
 const modelValue = defineModel<string>();
 </script>

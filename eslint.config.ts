@@ -24,6 +24,12 @@ export default defineConfig([
         },
     },
     {
+        files: ["**/*.vue"],
+        rules: {
+            "no-useless-assignment": "off"
+        }
+    },
+    {
         files: ["webpack.config.js"],
         languageOptions: { globals: globals.node },
         rules: {

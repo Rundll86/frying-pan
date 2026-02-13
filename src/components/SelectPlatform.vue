@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import platforms from '../structs/platforms';
-import ItemSelect from './ItemSelect.vue';
+import platforms from "../structs/platforms";
+import ItemSelect from "./ItemSelect.vue";
 
 const platform = defineModel<string>();
 </script>

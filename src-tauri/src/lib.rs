@@ -23,6 +23,7 @@ fn navigate(app_handle: AppHandle, config: NavigateConfig) {
         }
         if let WindowEvent::Focused { .. } = event {
             if let Some(window) = app_handle.get_webview_window("main") {
+                window.open_devtools();
                 window.eval(&config.run_after).unwrap();
             }
         }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { watchEffect } from 'vue';
-import NumberEdit from './NumberEdit.vue';
-import TextEdit from './TextEdit.vue';
-import ItemSelect from '../ItemSelect.vue';
+import { watchEffect } from "vue";
+import NumberEdit from "./NumberEdit.vue";
+import TextEdit from "./TextEdit.vue";
+import ItemSelect from "../ItemSelect.vue";
 
 const protocol = defineModel<string>("protocol", { default: "http" });
 const host = defineModel<string>("host", { default: "127.0.0.1" });
@@ -14,7 +14,7 @@ const emit = defineEmits<{
 watchEffect(() => {
     if (host.value.includes(":")) {
         try {
-            const url = new URL(host.value)
+            const url = new URL(host.value);
             const { hostname: hn, port: po, protocol: pr } = url;
             console.log(host.value, url);
             protocol.value = pr.slice(0, -1);

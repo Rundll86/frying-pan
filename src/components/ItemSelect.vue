@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
     items: Record<string, unknown>
 }>();
 const currentItem = defineModel<string | null>({ default: null });
@@ -20,7 +20,7 @@ function toggleOpen() {
     <div class="selector" @click="toggleOpen()">
         <div class="desk">{{ currentItem || "-" }}</div>
         <div class="items" v-if="opening">
-            <div class="item" v-for="_, key in items" @click="select(key)">{{ key }}</div>
+            <div class="item" :key="key" v-for="_, key in items" @click="select(key)">{{ key }}</div>
         </div>
     </div>
 </template>
