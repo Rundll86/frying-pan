@@ -4,10 +4,11 @@ import AddressEdit from './edits/AddressEdit.vue';
 import TitleInfo from './TitleInfo.vue';
 import SelectPlatform from './SelectPlatform.vue';
 import LargeButton from './LargeButton.vue';
-import platforms from '../structs/platforms';
+import platforms, { Platform } from '../structs/platforms';
+import { go } from '../structs/run';
 
 const address = ref<URL>(new URL("http://127.0.0.1:8000"));
-const platform = ref<string>("");
+const platform = ref<Platform>("TurboWarp");
 
 const state = computed<{ ready: boolean; message: string; }>(() => {
     const port = Number(address.value.port);
@@ -20,14 +21,16 @@ const state = computed<{ ready: boolean; message: string; }>(() => {
     }
 });
 
-function go() { }
+function startGo() {
+    go(platform.value, address.value);
+}
 </script>
 <template>
     <div class="starter">
         <TitleInfo />
         <AddressEdit @update="address = $event" />
         <SelectPlatform v-model="platform" />
-        <LargeButton :disabled="!platform" @click="go">Go!!!</LargeButton>
+        <LargeButton :disabled="!platform" @click="startGo">Go!!!</LargeButton>
         <span class="error-tip" v-if="!state.ready">{{ state.message }}</span>
     </div>
 </template>

@@ -1,14 +1,39 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+use std::sync::{
+    atomic::{AtomicBool, Ordering},
+    Arc,
+};
+
+use serde::Deserialize;
+use tauri::{AppHandle, Manager, WindowEvent};
+
+#[derive(Debug, Deserialize)]
+struct NavigateConfig {
+    url: String,
+    run_after: String,
+}
+
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+fn navigate(app_handle: AppHandle, config: NavigateConfig) {
+    let window = app_handle.get_webview_window("main").unwrap();
+    window.navigate(config.url.parse().unwrap()).unwrap();
+    let flag: Arc<AtomicBool> = Arc::new(AtomicBool::new(false));
+    window.on_window_event(move |event| {
+        if flag.swap(true, Ordering::Relaxed) {
+            return;
+        }
+        if let WindowEvent::Focused { .. } = event {
+            if let Some(window) = app_handle.get_webview_window("main") {
+                window.eval(&config.run_after).unwrap();
+            }
+        }
+    });
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![navigate])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
