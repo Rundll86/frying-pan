@@ -17,7 +17,7 @@ export async function go(platform: Platform, url: URL) {
         const { invoke } = window.__TAURI_INTERNALS__;
         console.log("正在下载拓展源码：", $url$);
         const code = await invoke("get", { url: $url$ }) as string;
-        console.log("下载完成：", code);
+        console.log("下载完成");
         const context = $context$;
         const req = async () => {
             let stop = false;

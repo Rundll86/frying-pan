@@ -38,7 +38,6 @@ async fn get(url: String) -> Result<String, String> {
         .map_err(|e| e.to_string())?;
     let response = client.get(&url).send().await.map_err(|e| e.to_string())?;
     let text = response.text().await.map_err(|e| e.to_string())?;
-    println!("{}", text);
     Ok(text)
 }
 
