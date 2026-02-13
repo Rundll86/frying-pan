@@ -32,8 +32,13 @@ fn navigate(app_handle: AppHandle, config: NavigateConfig) {
 
 #[tauri::command]
 async fn get(url: String) -> Result<String, String> {
-    let response = reqwest::get(&url).await.map_err(|e| e.to_string())?;
+    let client = reqwest::Client::builder()
+        .redirect(reqwest::redirect::Policy::limited(10))
+        .build()
+        .map_err(|e| e.to_string())?;
+    let response = client.get(&url).send().await.map_err(|e| e.to_string())?;
     let text = response.text().await.map_err(|e| e.to_string())?;
+    println!("{}", text);
     Ok(text)
 }
 
