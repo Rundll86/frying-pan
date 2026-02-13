@@ -6,19 +6,21 @@ import TextEdit from './TextEdit.vue';
 const host = defineModel<string>("host", { default: "127.0.0.1" });
 const port = defineModel<number>("port", { default: 8000 });
 
-const address = defineModel<string>("address");
+const emit = defineEmits<{
+    update: [address: `${string}:${number}`]
+}>();
 watchEffect(() => {
     if (host.value.includes(":")) {
         const [newHost, newPort] = host.value.split(":");
         host.value = newHost;
         port.value = Number(newPort);
     }
-    address.value = `${host.value}:${port.value}`;
+    emit("update", `${host.value}:${port.value}`);
 });
 </script>
 <template>
     <span class="address-edit">
-        服务器地址：
+        服务器地址 =
         <TextEdit v-model="host" />
         :
         <NumberEdit v-model="port" />

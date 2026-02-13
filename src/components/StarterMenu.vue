@@ -3,14 +3,19 @@ import { ref } from 'vue';
 import AddressEdit from './edits/AddressEdit.vue';
 import TitleInfo from './TitleInfo.vue';
 import SelectPlatform from './SelectPlatform.vue';
+import LargeButton from './LargeButton.vue';
 
-const address = ref("");
+const address = ref<string>("");
+const platform = ref<string>("");
+
+function go() { }
 </script>
 <template>
     <div class="starter">
         <TitleInfo />
-        <AddressEdit v-model:address="address" />
-        <SelectPlatform />
+        <AddressEdit @update="address = $event" />
+        <SelectPlatform v-model="platform" />
+        <LargeButton @click="go">Go!!!</LargeButton>
     </div>
 </template>
 <style scoped>

@@ -5,7 +5,7 @@ const platform = defineModel<string>();
 </script>
 <template>
     <div class="select-platform">
-        选择调试平台：
+        调试平台 =
         <ItemSelect :items="{
             turbowarp: 'https://turbowarp.org/editor',
             gandi: 'https://ccw.site/gandi/extension'

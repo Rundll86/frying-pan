@@ -18,7 +18,7 @@ function toggleOpen() {
 </script>
 <template>
     <div class="selector" @click="toggleOpen()">
-        <div class="desk">{{ currentItem ?? "-" }}</div>
+        <div class="desk">{{ currentItem || "-" }}</div>
         <div class="items" v-if="opening">
             <div class="item" v-for="_, key in items" @click="select(key)">{{ key }}</div>
         </div>
@@ -26,6 +26,7 @@ function toggleOpen() {
 </template>
 <style scoped>
 .selector {
+    margin: 0 5px;
     border: 1px solid gray;
     border-radius: 5px;
     overflow: hidden;
