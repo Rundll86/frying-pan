@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import platforms from '../structs/platforms';
 import ItemSelect from './ItemSelect.vue';
 
 const platform = defineModel<string>();
@@ -6,10 +7,7 @@ const platform = defineModel<string>();
 <template>
     <div class="select-platform">
         调试平台 =
-        <ItemSelect :items="{
-            turbowarp: 'https://turbowarp.org/editor',
-            gandi: 'https://ccw.site/gandi/extension'
-        }" v-model="platform" />
+        <ItemSelect :items="platforms" v-model="platform" />
     </div>
 </template>
 <style scoped>

@@ -1,5 +1,13 @@
+<script setup lang="ts">
+const props = defineProps({
+    disabled: {
+        type: Boolean,
+        default: false
+    }
+});
+</script>
 <template>
-    <button class="wide-btn">
+    <button :disabled="disabled" class="wide-btn" :class="{ disabled }">
         <slot></slot>
         <div class="hover"></div>
     </button>
@@ -20,13 +28,13 @@
     clip-path: polygon(0 0, 10px 0, 50% 50%, calc(100% - 10px) 0, 100% 0, 100% 10px, 50% 50%, 100% calc(100% - 10px), 100% 100%, calc(100% - 10px) 100%, 50% 50%, 10px 100%, 0 100%, 0 calc(100% - 10px), 50% 50%, 0 10px);
 }
 
-.wide-btn:hover .hover {
+.wide-btn:not(.disabled):hover .hover {
     opacity: 1;
     width: calc(100% + 30px);
     height: calc(100% + 30px);
 }
 
-.wide-btn:active .hover {
+.wide-btn:not(.disabled):active .hover {
     width: 100%;
     height: 100%;
 }
@@ -41,6 +49,17 @@
     position: relative;
     height: 45px;
 }
+
+.wide-btn.disabled::after,
+.wide-btn.disabled {
+    animation: none;
+    background-color: gray;
+}
+
+.wide-btn.disabled::before {
+    display: none;
+}
+
 
 .wide-btn::after {
     content: "";

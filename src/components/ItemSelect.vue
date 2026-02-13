@@ -31,7 +31,6 @@ function toggleOpen() {
     border-radius: 5px;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.05);
-    min-width: 200px;
 }
 
 .items {
