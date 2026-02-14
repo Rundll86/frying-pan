@@ -51,7 +51,7 @@ watchEffect(() => {
         <TextEdit v-model="extension" />
         @
         <template v-for="i in 3">
-            <NumberEdit v-model="versions[i]" />.
+            <NumberEdit v-model="versions[i - 1]" />.
         </template>
         js
     </span>

@@ -9,6 +9,6 @@ const modelValue = defineModel<number>();
 </template>
 <style scoped>
 .number-edit {
-    width: 100px;
+    width: 50px;
 }
 </style>

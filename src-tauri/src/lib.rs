@@ -4,7 +4,7 @@ use std::sync::{
 };
 
 use serde::Deserialize;
-use tauri::{AppHandle, Manager, WindowEvent};
+use tauri::{AppHandle, Manager, WebviewWindow, WindowEvent};
 
 #[derive(Debug, Deserialize)]
 struct NavigateConfig {
@@ -14,7 +14,7 @@ struct NavigateConfig {
 
 #[tauri::command]
 fn navigate(app_handle: AppHandle, config: NavigateConfig) {
-    let window = app_handle.get_webview_window("main").unwrap();
+    let window: WebviewWindow = app_handle.get_webview_window("main").unwrap();
     window.navigate(config.url.parse().unwrap()).unwrap();
     let flag: Arc<AtomicBool> = Arc::new(AtomicBool::new(false));
     window.on_window_event(move |event| {
